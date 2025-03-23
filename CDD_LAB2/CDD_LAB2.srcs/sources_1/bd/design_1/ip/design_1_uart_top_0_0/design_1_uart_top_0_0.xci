@@ -1,0 +1,54 @@
+{
+  "schema": "xilinx.com:schema:json_instance:1.0",
+  "ip_inst": {
+    "xci_name": "design_1_uart_top_0_0",
+    "cell_name": "uart_top_0",
+    "component_reference": "xilinx.com:module_ref:uart_top:1.0",
+    "ip_revision": "1",
+    "gen_directory": "../../../../../../CDD_LAB2.gen/sources_1/bd/design_1/ip/design_1_uart_top_0_0",
+    "parameters": {
+      "component_parameters": {
+        "NBYTES": [ { "value": "12", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "CLK_FREQ": [ { "value": "125000000", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "BAUD_RATE": [ { "value": "115200", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "Component_Name": [ { "value": "design_1_uart_top_0_0", "resolve_type": "user", "usage": "all" } ]
+      },
+      "model_parameters": {
+        "NBYTES": [ { "value": "12", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "CLK_FREQ": [ { "value": "125000000", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "BAUD_RATE": [ { "value": "115200", "resolve_type": "generated", "format": "long", "usage": "all" } ]
+      },
+      "project_parameters": {
+        "ARCHITECTURE": [ { "value": "zynq" } ],
+        "BASE_BOARD_PART": [ { "value": "tul.com.tw:pynq-z2:part0:1.0" } ],
+        "BOARD_CONNECTIONS": [ { "value": "" } ],
+        "DEVICE": [ { "value": "xc7z020" } ],
+        "PACKAGE": [ { "value": "clg400" } ],
+        "PREFHDL": [ { "value": "VERILOG" } ],
+        "SILICON_REVISION": [ { "value": "" } ],
+        "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
+        "SPEEDGRADE": [ { "value": "-1" } ],
+        "STATIC_POWER": [ { "value": "" } ],
+        "TEMPERATURE_GRADE": [ { "value": "" } ]
+      },
+      "runtime_parameters": {
+        "IPCONTEXT": [ { "value": "IP_Integrator" } ],
+        "IPREVISION": [ { "value": "1" } ],
+        "MANAGED": [ { "value": "TRUE" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../CDD_LAB2.gen/sources_1/bd/design_1/ip/design_1_uart_top_0_0" } ],
+        "SELECTEDSIMMODEL": [ { "value": "" } ],
+        "SHAREDDIR": [ { "value": "../../ipshared" } ],
+        "SWVERSION": [ { "value": "2024.2" } ],
+        "SYNTHESISFLOW": [ { "value": "OOC_HIERARCHICAL" } ]
+      }
+    },
+    "boundary": {
+      "ports": {
+        "iClk": [ { "direction": "in" } ],
+        "iRst": [ { "direction": "in" } ],
+        "iRx": [ { "direction": "in" } ],
+        "oTx": [ { "direction": "out" } ]
+      }
+    }
+  }
+}

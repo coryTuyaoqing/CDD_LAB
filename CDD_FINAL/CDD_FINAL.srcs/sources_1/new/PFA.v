@@ -1,11 +1,11 @@
-2`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
 // 
-// Create Date: 02/24/2025 11:23:47 AM
+// Create Date: 05/05/2025 08:52:59 AM
 // Design Name: 
-// Module Name: full_adder
+// Module Name: PFA
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,12 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module full_adder(
+module PFA(
     input wire iA, iB, iCin,
-    output wire oSum, oCout
+    output wire oSum, oP, oG
     );
     
     assign oSum = iA^iB^iCin;
-    assign oCout = ((iA^iB)&iCin) + (iA&iB);
+    assign oP = iA + iB;
+    assign oG = iA*iB;
     
 endmodule

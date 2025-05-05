@@ -28,7 +28,7 @@ module partial_full_adder_TB;
     wire oSum, oP, oG;
 
     // Instantiate the Unit Under Test (UUT)
-    PFA uut (
+    partial_full_adder PFA_inst (
         .iA(iA), 
         .iB(iB), 
         .iCin(iCin), 

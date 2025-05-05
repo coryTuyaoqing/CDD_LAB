@@ -20,13 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module PFA(
+module partial_full_adder(
     input wire iA, iB, iCin,
     output wire oSum, oP, oG
     );
     
     assign oSum = iA^iB^iCin;
-    assign oP = iA + iB;
-    assign oG = iA*iB;
+    assign oP = iA | iB;
+    assign oG = iA & iB;
     
 endmodule

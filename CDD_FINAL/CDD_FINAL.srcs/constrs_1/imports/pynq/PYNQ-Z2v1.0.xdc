@@ -150,13 +150,15 @@ set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports iRst]; #
 #set_property -dict { PACKAGE_PIN C20   IOSTANDARD LVCMOS33 } [get_ports { rpio_18_r }]; #IO_L1P_T0_AD0P_35 Sch=rpio_18_r
 #set_property -dict { PACKAGE_PIN Y8    IOSTANDARD LVCMOS33 } [get_ports { rpio_19_r }]; #IO_L14N_T2_SRCC_13 Sch=rpio_19_r
 
-set_property -dict { PACKAGE_PIN A20   IOSTANDARD LVCMOS33 } [get_ports iRx]; #IO_L2N_T0_AD8N_35 Sch=rpio_20_r
+##########
+
+#set_property -dict { PACKAGE_PIN A20   IOSTANDARD LVCMOS33 } [get_ports iRx]; #IO_L2N_T0_AD8N_35 Sch=rpio_20_r
 #set_property -dict { PACKAGE_PIN Y9    IOSTANDARD LVCMOS33 } [get_ports { rpio_21_r }]; #IO_L14P_T2_SRCC_13 Sch=rpio_21_r
 #set_property -dict { PACKAGE_PIN U8    IOSTANDARD LVCMOS33 } [get_ports { rpio_22_r }]; #IO_L17N_T2_13 Sch=rpio_22_r
 #set_property -dict { PACKAGE_PIN W6    IOSTANDARD LVCMOS33 } [get_ports { rpio_23_r }]; #IO_IO_L22N_T3_13 Sch=rpio_23_r
 #set_property -dict { PACKAGE_PIN Y7    IOSTANDARD LVCMOS33 } [get_ports { rpio_24_r }]; #IO_L13P_T2_MRCC_13 Sch=rpio_24_r
 #set_property -dict { PACKAGE_PIN F20   IOSTANDARD LVCMOS33 } [get_ports { rpio_25_r }]; #IO_L15N_T2_DQS_AD12N_35 Sch=rpio_25_r
-set_property -dict { PACKAGE_PIN W9    IOSTANDARD LVCMOS33 } [get_ports oTx]; #IO_L16N_T2_13 Sch=rpio_26_r
+#set_property -dict { PACKAGE_PIN W9    IOSTANDARD LVCMOS33 } [get_ports oTx]; #IO_L16N_T2_13 Sch=rpio_26_r
 
 #set_property -dict { PACKAGE_PIN Y16   IOSTANDARD LVCMOS33 } [get_ports { rpio_sd_r }]; #IO_L7P_T1_34 Sch=rpio_sd_r
 #set_property -dict { PACKAGE_PIN Y17   IOSTANDARD LVCMOS33 } [get_ports { rpio_sc_r }]; #IO_L7N_T1_34 Sch=rpio_sc_r

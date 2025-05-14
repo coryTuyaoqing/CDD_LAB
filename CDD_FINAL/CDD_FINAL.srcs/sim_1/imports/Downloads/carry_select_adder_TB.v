@@ -17,8 +17,8 @@
 
 module tb_carry_select_adder;
     // Parameters must match DUT defaults or override here
-    parameter N      = 16;
-    parameter B_SIZE = 4;
+    parameter N      = 32;
+    parameter B_SIZE = 8;
 
     // Inputs to DUT
     reg [N-1:0] A;

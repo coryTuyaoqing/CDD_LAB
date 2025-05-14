@@ -19,14 +19,14 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module carry_select_adder #(
-    parameter N      = 16,      // Total adder width
-    parameter B_SIZE = 4        // Bits per carry-select block
+    parameter N      = 64,      // Total adder width
+    parameter B_SIZE = 8        // Bits per carry-select block
 )(
-    input  wire [N-1:0] A,
-    input  wire [N-1:0] B,
-    input  wire         Cin,
-    output wire [N-1:0] Sum,
-    output wire         Cout
+    input  wire [N-1:0] iA,
+    input  wire [N-1:0] iB,
+    input  wire         iCarry,
+    output wire [N-1:0] oSum,
+    output wire         oCarry
 );
 
     // Number of blocks
@@ -34,7 +34,7 @@ module carry_select_adder #(
 
     // Internal carry signals between blocks
     wire [NUM_BLOCKS:0] carry;
-    assign carry[0] = Cin;
+    assign carry[0] = iCarry;
 
     genvar blk;
     generate
@@ -53,29 +53,29 @@ module carry_select_adder #(
             wire c0, c1;
 
             // Compute for Cin=0
-            carry_select_block #(.WIDTH(WIDTH)) u0 (
-                .A   (A[L +: WIDTH]),
-                .B   (B[L +: WIDTH]),
-                .Cin (1'b0),
-                .Sum (sum0),
-                .Cout(c0)
+            carry_lookahead_adder_8b u0 (
+                .iA   (iA[L +: WIDTH]),
+                .iB   (iB[L +: WIDTH]),
+                .iCarry (1'b0),
+                .oSum (sum0),
+                .oCarry(c0)
             );
 
             // Compute for Cin=1
-            carry_select_block #(.WIDTH(WIDTH)) u1 (
-                .A   (A[L +: WIDTH]),
-                .B   (B[L +: WIDTH]),
-                .Cin (1'b1),
-                .Sum (sum1),
-                .Cout(c1)
+            carry_lookahead_adder_8b u1 (
+                .iA   (iA[L +: WIDTH]),
+                .iB   (iB[L +: WIDTH]),
+                .iCarry(1'b1),
+                .oSum (sum1),
+                .oCarry(c1)
             );
 
             // Select correct sum and carry based on actual carry-in
-            assign Sum[L +: WIDTH] = carry[blk] ? sum1 : sum0;
+            assign oSum[L +: WIDTH] = carry[blk] ? sum1 : sum0;
             assign carry[blk+1]   = carry[blk] ? c1    : c0;
         end
     endgenerate
 
-    assign Cout = carry[NUM_BLOCKS];
+    assign oCarry = carry[NUM_BLOCKS];
 
 endmodule

@@ -1,5 +1,7 @@
+`timescale 1ns / 1ps
+
 module wrap_adder #(
-  parameter   ADDER_WIDTH = 4    // width of the internal adder
+  parameter   ADDER_WIDTH = 64    // width of the internal adder
   )
   (
     input  wire   iClk, iRst,
@@ -33,8 +35,8 @@ module wrap_adder #(
   wire [ADDER_WIDTH-1:0]  wResult;
   wire              wCarryOut;
       
-  carry_lookahead_adder_4B
-  carry_lookahead_inst   (
+  carry_select_adder
+  carry_select_inst   (
     .iA( rCnt[2*ADDER_WIDTH:ADDER_WIDTH+1] ), 
     .iB( rCnt[ADDER_WIDTH:1] ),
     .iCarry( rCnt[0] ),

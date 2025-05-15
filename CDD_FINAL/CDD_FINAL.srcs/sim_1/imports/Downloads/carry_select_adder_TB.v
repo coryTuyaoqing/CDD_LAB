@@ -17,8 +17,8 @@
 
 module tb_carry_select_adder;
     // Parameters must match DUT defaults or override here
-    parameter N      = 32;
-    parameter B_SIZE = 8;
+    parameter N      = 64;
+    parameter B_SIZE = 16;
 
     // Inputs to DUT
     reg [N-1:0] A;
@@ -34,11 +34,11 @@ module tb_carry_select_adder;
         .N(N),
         .B_SIZE(B_SIZE)
     ) dut (
-        .A   (A),
-        .B   (B),
-        .Cin (Cin),
-        .Sum (Sum),
-        .Cout(Cout)
+        .iA   (A),
+        .iB   (B),
+        .iCarry (Cin),
+        .oSum (Sum),
+        .oCarry(Cout)
     );
 
     // Reference result

@@ -1,13 +1,34 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 2025/05/15 22:25:02
+// Design Name: 
+// Module Name: mp_adder_csa_new
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
-module mp_adder #(
+
+module mp_adder_csa_new #(
       // to avoid extra complexity, it is best that OPERAND_WIDTH is a multiple of ADDER_WIDTH
       //   that way the number of iterations for the addition is an integer number
       // if the operands you want to add have an OPERAND_WIDTH non-multiple of ADDER_WIDTH
       //   you'll have to extend them by padding them with zeroes
       parameter OPERAND_WIDTH = 512,
       parameter ADDER_WIDTH   = 64,
-      parameter N_ITERATIONS  = OPERAND_WIDTH / ADDER_WIDTH
+      parameter N_ITERATIONS  = OPERAND_WIDTH / ADDER_WIDTH,
+      parameter B_SIZE = 8
     )
     (
     input  wire                       iClk,
@@ -15,8 +36,12 @@ module mp_adder #(
     input  wire                       iStart,
     input  wire [OPERAND_WIDTH-1:0]   iOpA,
     input  wire [OPERAND_WIDTH-1:0]   iOpB,
+    input  wire [1:0]                 iOperation, // 00=add, 01=sub, 10=cmp
     output wire [OPERAND_WIDTH:0]     oRes,  
     output wire                       oDone);
+
+    // Internal flags
+    wire isSub = (iOperation == 2'b01 || iOperation == 2'b10);
 
     // Describe an OPERAND_WIDTH-bit register for A
     wire [OPERAND_WIDTH-1:0] regA_D;
@@ -71,14 +96,31 @@ module mp_adder #(
     wire [ADDER_WIDTH-1:0]  result;
     wire                    carry_out;
 
-    carry_select_adder #( .N(ADDER_WIDTH) ) 
-    carry_select_inst   (
-        .iA( operandA ), 
-        .iB( operandB ),
-        .iCarry( carry_in ),
-        .oSum(result),
-        .oCarry(carry_out)
-      );
+    reg  muxCarry_sel;
+    wire muxCarryIn;
+   
+
+    arithmetic_unit_nbit #(.N(ADDER_WIDTH), .B_SIZE(B_SIZE)) au_inst (
+        .iA    (operandA),
+        .iB    (operandB),
+        .iOperation(iOperation),
+        .iCarryIn(muxCarryIn),
+//        .oSum  (result),
+        .oCarry(carry_out),
+        .oResult(result),
+        .oEqual(),
+        .oGreater(),
+        .oLess()
+    );
+
+    // ripple_carry_adder_Nb #( .ADDER_WIDTH(ADDER_WIDTH) ) 
+    // ripple_carry_inst   (
+    //     .iA( operandA ), 
+    //     .iB( operandB ),
+    //     .iCarry( carry_in ),
+    //     .oSum(result),
+    //     .oCarry(carry_out)
+    //   );
 
 
     // Describe an OPERAND_WIDTH-bit register for storing the result
@@ -99,22 +141,23 @@ module mp_adder #(
     begin
       if(iRst==1)   regCout <= 1'b0;
       else          regCout <= carry_out;
-    end
+    end 
 
     // Describe a 1-bit multiplexer for selecting carry-in
     // It should select either of these two:
     //   - 0
     //   - carry-out
-    reg  muxCarry_sel;
-    wire muxCarryIn;
+    // reg  muxCarry_sel;
+    // wire muxCarryIn;
 
-    assign muxCarryIn = (muxCarry_sel == 0) ? 1'b0 : regCout;
+    // assign muxCarryIn = (muxCarry_sel == 0) ? 1'b0 : regCout;
 
     // Connect the inputs of adder to the outputs of A and B registers
     // and to the carry mux
     assign operandA = regA_Q;
     assign operandB = regB_Q;
-    assign carry_in = muxCarryIn;
+    // assign carry_in = muxCarryIn;
+    assign muxCarryIn = (muxCarry_sel == 0) ? isSub : regCout;
 
     // Describe the output signal oRes: it is the concatenation of output registers
     assign oRes = { regCout, regResult};
@@ -238,3 +281,4 @@ module mp_adder #(
     
 
 endmodule
+

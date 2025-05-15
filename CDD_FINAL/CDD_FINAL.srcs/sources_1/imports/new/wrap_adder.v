@@ -35,7 +35,7 @@ module wrap_adder #(
   wire [ADDER_WIDTH-1:0]  wResult;
   wire              wCarryOut;
       
-  carry_select_adder
+  carry_select_adder #(.N(ADDER_WIDTH))
   carry_select_inst   (
     .iA( rCnt[2*ADDER_WIDTH:ADDER_WIDTH+1] ), 
     .iB( rCnt[ADDER_WIDTH:1] ),
@@ -58,6 +58,5 @@ module wrap_adder #(
   // 4. XOR all bits in wResult and give them as single output
   //-------------------------------------
   // 'Hack' to prevent Vivado from optimizing away the adder
-  assign oXORResult = ^rResult;
       
 endmodule
